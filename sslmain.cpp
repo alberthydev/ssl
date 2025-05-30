@@ -66,12 +66,14 @@ void SSLMain::onEllipseClicked(ClickableEllipse *ellipse)
 
     // Adiciona a nova selecionada e pinta de vermelho
     selectedEllipses.append(ellipse);
+    // ui->origin->setText("TESTE"); -> Pensar em uma forma de pegar cidade 1 e 2 e jogar para o certo
     ellipse->setBrush(Qt::green);
 }
 
 void SSLMain::setupMap()
 {
     QColor gray("#3c3c3c");
+    QColor brown("#8f3f00");
 
     // Cria a cena onde vamos desenhar
     QGraphicsScene *scene = new QGraphicsScene(this);
@@ -145,10 +147,10 @@ void SSLMain::setupMap()
 
     // D → E (curva)
     {
-        QPainterPath curva;
-        curva.moveTo(x4 + 10, y4 + 10);
-        curva.cubicTo(x4 + 100, y4, x5 - 100, y5 + 20, x5 + 10, y5 + 10);
-        scene->addPath(curva, QPen(gray, 2));
+        QPainterPath curvaDE;
+        curvaDE.moveTo(x4 + 10, y4 + 10);
+        curvaDE.cubicTo(x4 + 100, y4, x5 - 100, y5 + 20, x5 + 10, y5 + 10);
+        scene->addPath(curvaDE, QPen(brown, 2));
     }
 
     // C → E (reta)
