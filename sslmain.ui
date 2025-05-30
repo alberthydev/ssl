@@ -17,53 +17,613 @@
    <string notr="true">background: #17191b;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>1001</width>
-      <height>81</height>
+      <x>660</x>
+      <y>110</y>
+      <width>331</width>
+      <height>611</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <property name="sizeConstraint">
-      <enum>QLayout::SizeConstraint::SetNoConstraint</enum>
+    <layout class="QVBoxLayout" name="rightOptions" stretch="2,2,1,2">
+     <property name="spacing">
+      <number>25</number>
      </property>
+     <property name="sizeConstraint">
+      <enum>QLayout::SizeConstraint::SetMinAndMaxSize</enum>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QFrame" name="startCity">
+       <property name="styleSheet">
+        <string notr="true">background-color: #191a1f;
+border: 1px solid #2b2b2b;
+border-radius: 12px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Shape::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Shadow::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>5</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>5</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Carlito</family>
+            <pointsize>18</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #fbfafa;
+border: none;
+border-radius: 0;
+border-bottom: 1px solid #3c3c3c;
+padding-left: 15px;</string>
+          </property>
+          <property name="text">
+           <string>Cidade inicial:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="destination_2">
+          <property name="font">
+           <font>
+            <family>Carlito</family>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #fbfafa;
+border: none;
+border-radius: 0;
+padding: 5px;
+padding-left: 12px;
+</string>
+          </property>
+          <property name="text">
+           <string>CIDADE A</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="finalCity">
+       <property name="styleSheet">
+        <string notr="true">background-color: #191a1f;
+border: 1px solid #2b2b2b;
+border-radius: 12px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Shape::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Shadow::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>5</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>5</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="fCityTitle">
+          <property name="font">
+           <font>
+            <family>Carlito</family>
+            <pointsize>18</pointsize>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #fbfafa;
+border: none;
+border-radius: 0;
+border-bottom: 1px solid #3c3c3c;
+padding-left: 15px;</string>
+          </property>
+          <property name="text">
+           <string>Cidade destino:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="destination">
+          <property name="font">
+           <font>
+            <family>Carlito</family>
+            <pointsize>16</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: #fbfafa;
+border: none;
+border-radius: 0;
+padding: 5px;
+padding-left: 12px;</string>
+          </property>
+          <property name="text">
+           <string>CIDADE B</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <family>Carlito</family>
+         <pointsize>20</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+background: #25c665;
+color: #fbfafa;
+border-radius: 12px;
+}
+
+QPushButton:hover 
+{
+    background: #2cd870;
+}</string>
+       </property>
+       <property name="text">
+        <string>Calcular rota</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>assets/search.png</normaloff>assets/search.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QFrame" name="results">
+       <property name="styleSheet">
+        <string notr="true">background-color: #191a1f;
+border: 1px solid #2b2b2b;
+border-radius: 12px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Shape::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Shadow::Raised</enum>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>5</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>5</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLabel" name="distanceTitle">
+            <property name="font">
+             <font>
+              <family>Carlito</family>
+              <pointsize>16</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: #fbfafa;
+border: none;
+border-radius: 0;
+border-bottom: 1px solid #3c3c3c;
+padding: 15px 0 15px 15px;
+</string>
+            </property>
+            <property name="text">
+             <string>Distância:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="distanceResult">
+            <property name="font">
+             <font>
+              <family>Carlito</family>
+              <pointsize>16</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: #fbfafa;
+border: none;
+border-radius: 0;
+border-bottom: 1px solid #3c3c3c;
+padding: 5px
+</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
+          <item>
+           <widget class="QLabel" name="costTitle">
+            <property name="font">
+             <font>
+              <family>Carlito</family>
+              <pointsize>16</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: #fbfafa;
+border: none;
+border-radius: 0;
+border-bottom: 1px solid #3c3c3c;
+padding: 15px 0 15px 15px;</string>
+            </property>
+            <property name="text">
+             <string>Custo:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="costRestult">
+            <property name="font">
+             <font>
+              <family>Carlito</family>
+              <pointsize>16</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: #fbfafa;
+border: none;
+border-radius: 0;
+border-bottom: 1px solid #3c3c3c;
+padding: 5px</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
+          <item>
+           <widget class="QLabel" name="timeTitle">
+            <property name="font">
+             <font>
+              <family>Carlito</family>
+              <pointsize>16</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: #fbfafa;
+border: none;
+border-radius: 0;
+border-bottom: 1px solid transparent;
+padding: 15px 0 15px 15px;</string>
+            </property>
+            <property name="text">
+             <string>Tempo Estimado:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="timeResult">
+            <property name="font">
+             <font>
+              <family>Carlito</family>
+              <pointsize>16</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: #fbfafa;
+border: none;
+border-radius: 0;
+padding: 5px</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>641</width>
+      <height>611</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="leftOptions" stretch="1,0,8">
+     <property name="spacing">
+      <number>5</number>
+     </property>
+     <item>
+      <layout class="QHBoxLayout" name="addressSearcher" stretch="5">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <property name="sizeConstraint">
+        <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="searchCity">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item>
+          <layout class="QHBoxLayout" name="searchContainer" stretch="0,0">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="searchAddr">
+             <property name="font">
+              <font>
+               <family>Carlito</family>
+               <pointsize>16</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background: #191a1f;
+border: 1px solid #3c3c3c;
+border-radius: 12px;
+padding: 12px;
+color: #fbfafa;
+</string>
+             </property>
+             <property name="placeholderText">
+              <string>Pesquisar Endereço...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="searchBtn">
+             <property name="styleSheet">
+              <string notr="true">QPushButton
+{
+border: 1px solid #3c3c3c;
+background: #191a1f;
+border-radius: 12px;
+padding: 12px;
+}
+
+QPushButton:hover 
+{
+    background: #33353f;
+}</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="assets.qrc">
+               <normaloff>:/assets/assets/search.png</normaloff>:/assets/assets/search.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>32</width>
+               <height>32</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QLabel" name="title">
-         <property name="font">
-          <font>
-           <family>Carlito</family>
-           <pointsize>36</pointsize>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
+        <widget class="QRadioButton" name="dijkstra">
          <property name="styleSheet">
-          <string notr="true">color: #fefffe</string>
+          <string notr="true">QRadioButton
+{
+	color: #fbfafa;
+}
+
+QRadioButton::indicator
+{
+	border: 1px solid #3c3c3c;
+	border-radius: 2px;
+}
+
+QRadioButton::indicator:checked
+{
+	background-color: #25c665;
+}
+</string>
          </property>
          <property name="text">
-          <string>SSL</string>
+          <string>Dijkstra</string>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="bFord">
+         <property name="styleSheet">
+          <string notr="true">QRadioButton
+{
+	color: #fbfafa;
+}
+
+QRadioButton::indicator
+{
+	border: 1px solid #3c3c3c;
+	border-radius: 2px;
+}
+
+QRadioButton::indicator:checked
+{
+	background-color: #25c665;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Bellman-Ford</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="dTree">
+         <property name="styleSheet">
+          <string notr="true">QRadioButton
+{
+	color: #fbfafa;
+}
+
+QRadioButton::indicator
+{
+	border: 1px solid #3c3c3c;
+	border-radius: 2px;
+}
+
+QRadioButton::indicator:checked
+{
+	background-color: #25c665;
+}
+</string>
+         </property>
+         <property name="text">
+          <string>Árvore de Decisão</string>
          </property>
         </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0,0,0">
+      <widget class="QGraphicsView" name="mapView">
+       <property name="styleSheet">
+        <string notr="true">background: #191a1f;
+border: 1px solid #3c3c3c;
+border-radius: 12px;</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1001</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="menuBar">
+     <property name="sizeConstraint">
+      <enum>QLayout::SizeConstraint::SetNoConstraint</enum>
+     </property>
+     <item>
+      <layout class="QHBoxLayout" name="menuButtonsL" stretch="0,0,0,0">
        <property name="spacing">
-        <number>6</number>
+        <number>0</number>
        </property>
        <item>
-        <widget class="QPushButton" name="pushButton_6">
+        <layout class="QHBoxLayout" name="titleLayout">
+         <item>
+          <widget class="QLabel" name="title">
+           <property name="font">
+            <font>
+             <family>Carlito</family>
+             <pointsize>36</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: #fbfafa;
+background: #191a1f;
+border-bottom: 1px solid #2b2b2b;</string>
+           </property>
+           <property name="text">
+            <string>SSL</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignmentFlag::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnMap">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -81,23 +641,36 @@
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton {
-    background-color: transparent;
+    background: #191a1f;
     border: none;
-	border-bottom: 5px solid #17191b;
     color: #fbfafa;
+	border-bottom: 1px solid #2b2b2b;
 }
 
+/* Hover visual */
 QPushButton:hover {
+	background: #33353f;
+    border-bottom: 5px solid #25c665;
+}
+
+/* Botão clicado (checkable e checked) */
+QPushButton:checked {
     border-bottom: 5px solid #25c665;
 }</string>
          </property>
          <property name="text">
           <string>MAPA</string>
          </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_5">
+        <widget class="QPushButton" name="btnDelivery">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -112,23 +685,33 @@ QPushButton:hover {
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton {
-    background-color: transparent;
+    background: #191a1f;
     border: none;
-	border-bottom: 5px solid #17191b;
     color: #fbfafa;
+	border-bottom: 1px solid #2b2b2b;
 }
 
+/* Hover visual */
 QPushButton:hover {
+	background: #33353f;
+    border-bottom: 5px solid #25c665;
+}
+
+/* Botão clicado (checkable e checked) */
+QPushButton:checked {
     border-bottom: 5px solid #25c665;
 }</string>
          </property>
          <property name="text">
           <string>ENTREGAS</string>
          </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="btnCosts">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -143,49 +726,28 @@ QPushButton:hover {
          </property>
          <property name="styleSheet">
           <string notr="true">QPushButton {
-    background-color: transparent;
+    background: #191a1f;
     border: none;
-	border-bottom: 5px solid #17191b;
     color: #fbfafa;
+	border-bottom: 1px solid #2b2b2b;
 }
 
+/* Hover visual */
 QPushButton:hover {
+    background: #33353f;
+	border-bottom: 5px solid #25c665;
+}
+
+/* Botão clicado (checkable e checked) */
+QPushButton:checked {
     border-bottom: 5px solid #25c665;
 }</string>
          </property>
          <property name="text">
           <string>CUSTOS</string>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>CaskaydiaMono NF</family>
-           <pointsize>14</pointsize>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">QPushButton {
-    background-color: transparent;
-    border: none;
-	border-bottom: 5px solid #17191b;
-    color: #fbfafa;
-}
-
-QPushButton:hover {
-    border-bottom: 5px solid #25c665;
-}</string>
-         </property>
-         <property name="text">
-          <string>RELATÓRIOS</string>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -194,18 +756,10 @@ QPushButton:hover {
     </layout>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1001</width>
-     <height>19</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="assets.qrc"/>
+ </resources>
  <connections/>
 </ui>
