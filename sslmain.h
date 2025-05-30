@@ -54,6 +54,12 @@ public:
 private slots:
     void onEllipseClicked(ClickableEllipse *ellipse);
 
+    void on_btnMap_clicked();
+
+    void on_btnDelivery_clicked();
+
+    void on_btnCosts_clicked();
+
 private:
     Ui::SSLMain *ui;
     void setupMap();

@@ -162,3 +162,21 @@ void SSLMain::setupMap()
     // Associa a cena ao QGraphicsView do Designer
     ui->mapView->setScene(scene);
 }
+
+void SSLMain::on_btnMap_clicked()
+{
+    ui->body->setCurrentIndex(0);
+}
+
+
+void SSLMain::on_btnDelivery_clicked()
+{
+    ui->body->setCurrentIndex(1);
+}
+
+
+void SSLMain::on_btnCosts_clicked()
+{
+    ui->body->setCurrentIndex(2);
+}
+
