@@ -40,6 +40,7 @@ void EditDialog::on_okBtn_clicked()
 
     if (ui->productEditInput->text().isEmpty() || ui->weighEdittLabel->text().isEmpty()) {
         editMsgBox.setText("Preencha todos os campos.");
+        editMsgBox.exec();
         return;
     }
 

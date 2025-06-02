@@ -2,6 +2,7 @@
 #include "deliverytree.h"
 #include "editdialog.h"
 #include "ui_sslmain.h"
+#include <QDoubleValidator>
 #include "graph.h"
 
 SSLMain::SSLMain(QWidget *parent)
@@ -16,6 +17,10 @@ SSLMain::SSLMain(QWidget *parent)
     grupo->setExclusive(true);
     grupo->addButton(ui->btnMap);
     grupo->addButton(ui->btnDelivery);
+
+    QDoubleValidator* validator = new QDoubleValidator(0.0, 9999.99, 2, this);
+    validator->setNotation(QDoubleValidator::StandardNotation);
+    ui->weightInput->setValidator(validator);
 
     setupMap();
     setupPathMap();
