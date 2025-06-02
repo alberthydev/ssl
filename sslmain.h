@@ -59,12 +59,21 @@ private slots:
     void clickedCity(QString cityName);
     void on_btnMap_clicked();
     void on_btnDelivery_clicked();
-    void on_btnCosts_clicked();
     void on_calcBtn_clicked();
+
+    void on_registerBtn_clicked();
+
+    void on_deleteBtn_clicked();
+
+    void on_editBtn_clicked();
+
+    void on_totalCalcBtn_clicked();
 
 private:
     Ui::SSLMain *ui;
     QGraphicsScene* scene;
+    void addCity(const QString &name, int x, int y, const QColor &textColor);
+    void addPathCurve(int x1, int y1, int x2, int y2, const QColor &color, bool curve);
     void setupMap();
     QList<cityItem*> selectedCities;
     QString originCity;
@@ -78,6 +87,11 @@ private:
     QList<QGraphicsItem*> pathItems;
     void clearPathDrawing();
     std::map<std::pair<std::string, std::string>, std::function<void(QGraphicsScene*)>> pathMap;
+    QString lastOrigin;
+    QString lastDestination;
+    double lastDistance;
+    double lastCost;
+    double lastTime;
 };
 
 

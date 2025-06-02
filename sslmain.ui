@@ -24,7 +24,7 @@
        <enum>QLayout::SizeConstraint::SetNoConstraint</enum>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="menuButtonsL" stretch="0,0,0,0">
+       <layout class="QHBoxLayout" name="menuButtonsL" stretch="0,0,0">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -136,47 +136,6 @@ QPushButton:checked {
           </property>
           <property name="text">
            <string>ENTREGAS</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btnCosts">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <family>CaskaydiaMono NF</family>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
-    background: #191a1f;
-    border: none;
-    color: #fbfafa;
-	border-bottom: 1px solid #2b2b2b;
-}
-
-/* Hover visual */
-QPushButton:hover {
-    background: #33353f;
-	border-bottom: 5px solid #25c665;
-}
-
-/* Botão clicado (checkable e checked) */
-QPushButton:checked {
-    border-bottom: 5px solid #25c665;
-}</string>
-          </property>
-          <property name="text">
-           <string>CUSTOS</string>
           </property>
           <property name="checkable">
            <bool>true</bool>
@@ -746,7 +705,7 @@ border-radius: 0;
 padding: 15px 0 15px 5px;</string>
                   </property>
                   <property name="text">
-                   <string>PRODUTO:</string>
+                   <string>PRODUTO/S:</string>
                   </property>
                  </widget>
                 </item>
@@ -883,7 +842,17 @@ border-bottom: 1px solid #3c3c3c;</string>
               </widget>
              </item>
              <item>
-              <widget class="QListWidget" name="routerTable"/>
+              <widget class="QListWidget" name="routerTable">
+               <property name="font">
+                <font>
+                 <family>Carlito</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: #fbfafa;</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -990,7 +959,17 @@ border-bottom: 1px solid #3c3c3c;</string>
               </widget>
              </item>
              <item>
-              <widget class="QListWidget" name="packageList"/>
+              <widget class="QListWidget" name="packageList">
+               <property name="font">
+                <font>
+                 <family>Carlito</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: #fbfafa;</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -1031,13 +1010,23 @@ border-bottom: 1px solid #3c3c3c;</string>
               </widget>
              </item>
              <item>
-              <widget class="QListWidget" name="totalList"/>
+              <widget class="QListWidget" name="totalList">
+               <property name="font">
+                <font>
+                 <family>Carlito</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: #fbfafa;</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="calcBtn_2">
+           <widget class="QPushButton" name="totalCalcBtn">
             <property name="font">
              <font>
               <family>Carlito</family>
@@ -1068,7 +1057,6 @@ QPushButton:hover
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="costs"/>
      </widget>
     </item>
    </layout>

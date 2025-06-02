@@ -5,7 +5,8 @@ Vertex::~Vertex() {
     for (Edge* edge : edges) delete edge;
 }
 
-Edge::Edge(Vertex* dest, int weight) : destination(dest), weight(weight) {}
+Edge::Edge(Vertex* dest, int weight, bool isDirtRoad)
+    : destination(dest), weight(weight), isDirtRoad(isDirtRoad) {}
 
 Graph::Graph() : vertices(nullptr), distanceResult(0), costResult(0.0), timeResult(0.0) {}
 Graph::~Graph() {
@@ -39,10 +40,10 @@ Vertex* Graph::findOrCreateVertex(const std::string& name) {
     return newVertex;
 }
 
-void Graph::addEdge(const std::string& source, const std::string& destination, int distance) {
+void Graph::addEdge(const std::string& source, const std::string& destination, int distance, bool isDirtRoad) {
     Vertex* src = findOrCreateVertex(source);
     Vertex* dest = findOrCreateVertex(destination);
-    src->edges.push_back(new Edge(dest, distance));
+    src->edges.push_back(new Edge(dest, distance, isDirtRoad));
 }
 
 void Graph::removeEdge(const std::string& source, const std::string& destination) {
@@ -115,6 +116,76 @@ bool Graph::dijkstra(const std::string& start, const std::string& end) {
     distanceResult = distances[end];
     costResult = distanceResult * 0.69;
     timeResult = static_cast<double>(distanceResult) / 60.0;
+
+    return true;
+}
+
+bool Graph::decisionTree(const std::string& start, const std::string& end) {
+    Vertex* startVertex = findVertex(start);
+    Vertex* endVertex = findVertex(end);
+
+    if (!startVertex || !endVertex) return false;
+
+    // Map para distâncias mínimas e predecessores
+    std::unordered_map<Vertex*, int> distances;
+    std::unordered_map<Vertex*, Vertex*> previous;
+
+    // Inicializa distâncias com infinito
+    for (Vertex* v = vertices; v != nullptr; v = v->next) {
+        distances[v] = std::numeric_limits<int>::max();
+        previous[v] = nullptr;
+    }
+
+    distances[startVertex] = 0;
+
+    // Min-heap por distância (pair: distância, vértice)
+    auto cmp = [](const std::pair<int, Vertex*>& left, const std::pair<int, Vertex*>& right) {
+        return left.first > right.first;
+    };
+    std::priority_queue<std::pair<int, Vertex*>, std::vector<std::pair<int, Vertex*>>, decltype(cmp)> queue(cmp);
+
+    queue.push({0, startVertex});
+
+    while (!queue.empty()) {
+        int dist = queue.top().first;
+        Vertex* current = queue.top().second;
+        queue.pop();
+
+        if (dist > distances[current]) continue;
+
+        if (current == endVertex) break;
+
+        for (Edge* edge : current->edges) {
+            // Ignora arestas de terra
+            if (edge->isDirtRoad) continue;
+
+            int alt = distances[current] + edge->weight;
+            if (alt < distances[edge->destination]) {
+                distances[edge->destination] = alt;
+                previous[edge->destination] = current;
+                queue.push({alt, edge->destination});
+            }
+        }
+    }
+
+    if (distances[endVertex] == std::numeric_limits<int>::max()) {
+        // Caminho não encontrado
+        return false;
+    }
+
+    // Salva resultados
+    distanceResult = distances[endVertex];
+    pathResult.clear();
+
+    // Reconstrução do caminho
+    for (Vertex* v = endVertex; v != nullptr; v = previous[v]) {
+        pathResult.push_back(v->name);
+    }
+    std::reverse(pathResult.begin(), pathResult.end());
+
+    // Atualiza costResult e timeResult se quiser, ou deixar para depois
+    costResult = distanceResult * 1.0; // Exemplo
+    timeResult = distanceResult / 40.0; // Exemplo: velocidade média 40 km/h
 
     return true;
 }

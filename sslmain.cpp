@@ -1,4 +1,5 @@
 #include "sslmain.h"
+#include "editdialog.h"
 #include "ui_sslmain.h"
 #include "graph.h"
 
@@ -14,7 +15,6 @@ SSLMain::SSLMain(QWidget *parent)
     grupo->setExclusive(true);
     grupo->addButton(ui->btnMap);
     grupo->addButton(ui->btnDelivery);
-    grupo->addButton(ui->btnCosts);
 
     setupMap();
     setupPathMap();
@@ -70,7 +70,6 @@ void SSLMain::clickedCity(QString cityName) {
         ui->origin->setText(originCity);
         ui->destination->setText("");
 
-        // Limpa o caminho desenhado, se houver
         clearPathDrawing();
     } else if (destinationCity.isEmpty()) {
         destinationCity = cityName;
@@ -84,7 +83,6 @@ void SSLMain::clickedCity(QString cityName) {
         ui->origin->setText(originCity);
         ui->destination->setText("");
 
-        // Limpa o caminho desenhado, se houver
         clearPathDrawing();
     }
 }
@@ -115,144 +113,62 @@ void SSLMain::onCityItemClicked(cityItem *city)
     city->setBrush(selected);
 }
 
-void SSLMain::setupMap()
-{
+void SSLMain::addCity(const QString &name, int x, int y, const QColor &textColor = "#fbfafa") {
+    QGraphicsTextItem *label = scene->addText(name);
+    label->setDefaultTextColor(textColor);
+    label->setZValue(1);
+    label->setPos(x - 20, y - 30);
+
+    cityItem *city = new cityItem(name, x, y, 20, 20);
+    city->setZValue(1);
+    scene->addItem(city);
+    cityMap[name] = QPointF(x, y);
+
+    connect(city, &cityItem::clicked, this, [=](cityItem *c) {
+        clickedCity(c->name);
+        onCityItemClicked(c);
+    });
+}
+
+void SSLMain::addPathCurve(int x1, int y1, int x2, int y2, const QColor &color, bool curve = false) {
+    QPainterPath path;
+    path.moveTo(x1 + 10, y1 + 10);
+    if (curve) {
+        path.cubicTo(x1 + 50, y1 - 50, x2 - 30, y2 - 10, x2 + 10, y2 + 10);
+    } else {
+        path.lineTo(x2 + 10, y2 + 10);
+    }
+    scene->addPath(path, QPen(color, 2));
+}
+
+void SSLMain::setupMap() {
+    scene = new QGraphicsScene(this);
     QColor gray("#3c3c3c");
     QColor brown("#8f3f00");
 
-    // Cria a cena onde vamos desenhar
-    scene = new QGraphicsScene(this);
+    // City coords
+    QMap<QString, QPoint> coords = {
+                                    {"Cidade A", {50, 100}},
+                                    {"Cidade B", {50, 400}},
+                                    {"Cidade C", {350, 120}},
+                                    {"Cidade D", {150, 250}},
+                                    {"Cidade E", {500, 260}},
+                                    };
 
-    // City A Text
-    int x1 = 50, y1 = 100;
-    QGraphicsTextItem *cityAt = scene->addText("Cidade A");
-    cityAt->setDefaultTextColor(Qt::green);
-    cityAt->setPos(x1-29, y1-25);
-
-    // City A Ellipse
-    cityItem* cityA = new cityItem("Cidade A", x1, y1, 20, 20);
-    cityA->setZValue(1);
-    scene->addItem(cityA);
-    cityMap["Cidade A"] = QPointF(x1,y1);
-
-    connect(cityA, &cityItem::clicked, this, [=](cityItem *c) {
-        clickedCity(c->name);
-        onCityItemClicked(c);
-    });
-
-    // Para atualizar a cor (opcional):
-    //cityA->setBrush((cityA->name == originCity) ? Qt::blue :
-    //                   (cityA->name == destinationCity) ? Qt::red : Qt::green);
-
-    // City B Text
-    int x2 = 50, y2 = 400;
-    QGraphicsTextItem *cityBt = scene->addText("Cidade B");
-    cityBt->setDefaultTextColor(Qt::green);
-    cityBt->setPos(x2, y2+25);
-
-    // City B Ellipse
-    cityItem* cityB = new cityItem("Cidade B", x2, y2, 20,20);
-    cityB->setZValue(1);
-    scene->addItem(cityB);
-    cityMap["Cidade B"] = QPointF(x2,y2);
-
-    connect(cityB, &cityItem::clicked, this, [=](cityItem *c) {
-        clickedCity(c->name);
-        onCityItemClicked(c);
-    });
-
-    // City C Text
-    int x3 = 350, y3 = 120;
-    QGraphicsTextItem *cityCt = scene->addText("Cidade C");
-    cityCt->setDefaultTextColor(Qt::green);
-    cityCt->setPos(x3+25, y3);
-
-    // City C Ellipse
-    cityItem* cityC = new cityItem("Cidade C", x3, y3, 20,20);
-    cityC->setZValue(1);
-    scene->addItem(cityC);
-    cityMap["Cidade C"] = QPointF(x3,y3);
-
-    connect(cityC, &cityItem::clicked, this, [=](cityItem *c) {
-        clickedCity(c->name);
-        onCityItemClicked(c);
-    });
-
-    // City D Text
-    int x4 = 150, y4 = 250;
-    QGraphicsTextItem *cityDt = scene->addText("Cidade D");
-    cityDt->setDefaultTextColor(Qt::green);
-    cityDt->setPos(x4, y4+25);
-
-    // City D Ellipse
-    cityItem* cityD = new cityItem("Cidade D", x4, y4, 20, 20);
-    cityD->setZValue(1);
-    scene->addItem(cityD);
-    cityMap["Cidade D"] = QPointF(x4,y4);
-
-    connect(cityD, &cityItem::clicked, this, [=](cityItem *c) {
-        clickedCity(c->name);
-        onCityItemClicked(c);
-    });
-
-    // City E Text
-    int x5 = 500, y5 = 260;
-    QGraphicsTextItem *cityEt = scene->addText("Cidade E");
-    cityEt->setDefaultTextColor(Qt::green);
-    cityEt->setPos(x5, y5+25);
-
-    // City E Ellipse
-    cityItem* cityE = new cityItem("Cidade E", x5, y5, 20,20);
-    cityE->setZValue(1);
-    scene->addItem(cityE);
-    cityMap["Cidade E"] = QPointF(x5,y5);
-
-    connect(cityE, &cityItem::clicked, this, [=](cityItem *c){
-        clickedCity(c->name);
-        onCityItemClicked(c);
-    });
-
-    // A → C
-    {
-        QPainterPath curveAC;
-        curveAC.moveTo(x1 + 10, y1 + 10);
-        curveAC.cubicTo(x1 + 50, y1 - 50, x3 - 30, y3 - 10, x3 + 10, y3 + 10);
-        scene->addPath(curveAC, QPen(gray, 2));
+    // Add cities
+    for (const auto &name : coords.keys()) {
+        const QPoint &p = coords[name];
+        addCity(name, p.x(), p.y());
     }
 
-    // A → D
-    {
-        QPainterPath lineAD;
-        lineAD.moveTo(x1 + 10, y1 + 10);
-        lineAD.lineTo(x4 + 10, y4 + 10);
-        scene->addPath(lineAD, QPen(gray, 2));
-    }
+    // Add conections
+    addPathCurve(50, 100, 350, 120, gray, true);   // A → C
+    addPathCurve(50, 100, 150, 250, gray);         // A → D
+    addPathCurve(150, 250, 500, 260, brown, true); // D → E
+    addPathCurve(350, 120, 500, 260, gray);        // C → E
+    addPathCurve(50, 400, 150, 250, gray);         // B → D
 
-    // D → E
-    {
-        QPainterPath curveDE;
-        curveDE.moveTo(x4 + 10, y4 + 10);
-        curveDE.cubicTo(x4 + 100, y4, x5 - 100, y5 + 20, x5 + 10, y5 + 10);
-        scene->addPath(curveDE, QPen(brown, 2));
-    }
-
-    // C → E
-    {
-        QPainterPath lineCE;
-        lineCE.moveTo(x3 + 10, y3 + 10);
-        lineCE.lineTo(x5 + 10, y5 + 10);
-        scene->addPath(lineCE, QPen(gray, 2));
-    }
-
-    // B → D
-    {
-        QPainterPath lineBD;
-        lineBD.moveTo(x2 + 10, y2 + 10);
-        lineBD.lineTo(x4 + 10, y4 + 10);
-        scene->addPath(lineBD, QPen(gray, 2));
-    }
-
-    // Associa a cena ao QGraphicsView do Designer
+    // Atribue to QGraphicsView
     ui->mapView->setScene(scene);
 }
 
@@ -270,7 +186,7 @@ void SSLMain::setupPathMap()
         p.moveTo(pA.x() + 10, pA.y() + 10);
         p.cubicTo(pA.x() + 50, pA.y() - 50, pC.x() - 30, pC.y() - 10, pC.x() + 10, pC.y() + 10);
         QGraphicsPathItem* item = s->addPath(p, QPen(green, 3));
-        pathItems.append(item);  // Adiciona à lista para depois remover
+        pathItems.append(item);
     };
     pathMap[{ "Cidade C", "Cidade A" }] = pathMap[{ "Cidade A", "Cidade C" }];
 
@@ -279,16 +195,16 @@ void SSLMain::setupPathMap()
         p.moveTo(pA.x() + 10, pA.y() + 10);
         p.lineTo(pD.x() + 10, pD.y() + 10);
         QGraphicsPathItem* item = s->addPath(p, QPen(green, 3));
-        pathItems.append(item);  // Adiciona à lista para depois remover
+        pathItems.append(item);
     };
     pathMap[{ "Cidade D", "Cidade A" }] = pathMap[{ "Cidade A", "Cidade D" }];
 
     pathMap[{ "Cidade D", "Cidade E" }] = [=](QGraphicsScene* s){
         QPainterPath p;
         p.moveTo(pD.x() + 10, pD.y() + 10);
-        p.cubicTo(pD.x() + 100, pD.y(), pE.x() - 100, pE.y() + 20, pE.x() + 10, pE.y() + 10);
+        p.cubicTo(pD.x() + 50, pD.y() - 50, pE.x() - 30, pE.y() - 10, pE.x() + 10, pE.y() + 10);
         QGraphicsPathItem* item = s->addPath(p, QPen(green, 3));
-        pathItems.append(item);  // Adiciona à lista para depois remover
+        pathItems.append(item);
     };
     pathMap[{ "Cidade E", "Cidade D" }] = pathMap[{ "Cidade D", "Cidade E" }];
 
@@ -297,7 +213,7 @@ void SSLMain::setupPathMap()
         p.moveTo(pC.x() + 10, pC.y() + 10);
         p.lineTo(pE.x() + 10, pE.y() + 10);
         QGraphicsPathItem* item = s->addPath(p, QPen(green, 3));
-        pathItems.append(item);  // Adiciona à lista para depois remover
+        pathItems.append(item);
     };
     pathMap[{ "Cidade E", "Cidade C" }] = pathMap[{ "Cidade C", "Cidade E" }];
 
@@ -306,21 +222,21 @@ void SSLMain::setupPathMap()
         p.moveTo(pB.x() + 10, pB.y() + 10);
         p.lineTo(pD.x() + 10, pD.y() + 10);
         QGraphicsPathItem* item = s->addPath(p, QPen(green, 3));
-        pathItems.append(item);  // Adiciona à lista para depois remover
+        pathItems.append(item);
     };
     pathMap[{ "Cidade D", "Cidade B" }] = pathMap[{ "Cidade B", "Cidade D" }];
 }
 
 void SSLMain::highlightPath(const std::vector<std::string>& path)
 {
-    clearPathDrawing();  // limpa caminhos antigos
+    clearPathDrawing();
 
     for (size_t i = 0; i + 1 < path.size(); ++i)
     {
         std::pair<std::string, std::string> edge = { path[i], path[i+1] };
         if (pathMap.count(edge))
         {
-            pathMap[edge](scene);  // desenha e registra na pathItems
+            pathMap[edge](scene);
         }
     }
 }
@@ -335,13 +251,6 @@ void SSLMain::on_btnDelivery_clicked()
 {
     ui->body->setCurrentIndex(1);
 }
-
-
-void SSLMain::on_btnCosts_clicked()
-{
-    ui->body->setCurrentIndex(2);
-}
-
 
 void SSLMain::on_calcBtn_clicked()
 {
@@ -361,9 +270,15 @@ void SSLMain::on_calcBtn_clicked()
     graph.addEdge("Cidade C", "Cidade E", 57);
     graph.addEdge("Cidade E", "Cidade C", 57);
 
-    // Estrada de terra com penalidade
-    graph.addEdge("Cidade D", "Cidade E", 78);  // 30
-    graph.addEdge("Cidade E", "Cidade D", 78);  // 30
+    // Estrada de terra
+    graph.addEdge("Cidade D", "Cidade E", 78, true);
+    graph.addEdge("Cidade E", "Cidade D", 78, true);
+
+    if(ui->origin->text()!= ""){
+
+    }else{
+        QMessageBox::warning(this, "Aviso", "Informe o nome para adicionar!");
+    }
 
     if(ui->origin->text()!="")
     {
@@ -379,21 +294,43 @@ void SSLMain::on_calcBtn_clicked()
                     ui->distanceResult->setText(QString::number(graph.getDistance()) + " km");
                     ui->costRestult->setText("R$ " + QString::number(graph.getCost(), 'f', 2));
                     ui->timeResult->setText(QString::number(graph.getTime(), 'f', 1) + " h");
-                    //scene->clear();      // limpa cena
-                    //setupMap();          // redesenha o mapa base
-                    highlightPath(graph.getPath());  // desenha caminho azul
+                    highlightPath(graph.getPath());
                 }
                 else
                 {
                     calcMsgBox.setText("Caminho não encontrado");
+                    calcMsgBox.exec();
                 }
             }
 
-            // Decision Tree
-            if(ui->dTree->isChecked())
+            if (ui->dTree->isChecked())
             {
-
+                if (graph.decisionTree(originCityCalc.toStdString(), destinationCityCalc.toStdString())) {
+                    ui->distanceResult->setText(QString::number(graph.getDistance()) + " km");
+                    ui->costRestult->setText("R$ " + QString::number(graph.getCost(), 'f', 2));
+                    ui->timeResult->setText(QString::number(graph.getTime(), 'f', 1) + " h");
+                    highlightPath(graph.getPath());
+                }
+                else
+                {
+                    calcMsgBox.setText("Caminho não encontrado");
+                    calcMsgBox.exec();
+                }
             }
+
+            ui->routerTable->addItem(
+                ui->origin->text() + " -> " + ui->destination->text() + "\n" +
+                "Distância: " + ui->distanceResult->text() + "\n" +
+                "Custo: " + ui->costRestult->text() + "\n" +
+                "Tempo Estimado: " + ui->timeResult->text()
+                );
+            lastOrigin = originCityCalc;
+            lastDestination = destinationCityCalc;
+            lastDistance = graph.getDistance();
+            lastCost = graph.getCost();
+            lastTime = graph.getTime();
+            ui->origin->setText("");
+            ui->destination->setText("");
         }
         else
         {
@@ -407,3 +344,126 @@ void SSLMain::on_calcBtn_clicked()
         calcMsgBox.exec();
     }
 }
+
+void SSLMain::on_registerBtn_clicked()
+{
+    QMessageBox productMsgBox;
+    productMsgBox.setIcon(QMessageBox::Warning);
+    productMsgBox.setWindowTitle("Dados Faltando");
+    productMsgBox.setStyleSheet("QLabel { color: #fbfafa; }"
+                             "QMessageBox { background-color: #2b2b2b; }");
+
+    if(ui->productInput->text()!="")
+    {
+        if(ui->weightInput->text()!="")
+        {
+            ui->packageList->addItem(ui->productInput->text()+" : "+ui->weightInput->text());
+        }
+        else
+        {
+            productMsgBox.setText("Preencha o peso do produto");
+            productMsgBox.exec();
+        }
+    }
+    else
+    {
+        productMsgBox.setText("Preencha com um produto.");
+        productMsgBox.exec();
+    }
+}
+
+void SSLMain::on_deleteBtn_clicked()
+{
+    QMessageBox delMsgBox;
+    delMsgBox.setIcon(QMessageBox::Warning);
+    delMsgBox.setWindowTitle("Nenhum item selecionado");
+    delMsgBox.setStyleSheet("QLabel { color: #fbfafa; }"
+                             "QMessageBox { background-color: #2b2b2b; }");
+
+    QListWidgetItem *selectedItem = ui->packageList->currentItem();
+
+    if (!selectedItem || !(ui->packageList->row(selectedItem) >= 0)) {
+        delMsgBox.setText("Por favor, selecione um item para deletar.");
+        delMsgBox.exec();
+        return;
+    }
+
+    foreach (QListWidgetItem * NAME, ui->packageList->selectedItems()) {
+        delete ui->packageList->takeItem(ui->packageList->row(NAME));
+    }
+
+    ui->packageList->clearSelection();
+    ui->packageList->setCurrentItem(nullptr);
+}
+
+
+void SSLMain::on_editBtn_clicked()
+{
+    QMessageBox editMsgBox;
+    editMsgBox.setIcon(QMessageBox::Warning);
+    editMsgBox.setWindowTitle("Nenhum item selecionado");
+    editMsgBox.setStyleSheet("QLabel { color: #fbfafa; }"
+                                "QMessageBox { background-color: #2b2b2b; }");
+
+    QListWidgetItem *selectedItem = ui->packageList->currentItem();
+
+    if (!selectedItem || !(ui->packageList->row(selectedItem) >= 0)) {
+        editMsgBox.setText("Por favor, selecione um item para editar.");
+        editMsgBox.exec();
+        return;
+    }
+
+    QString itemText = selectedItem->text();
+    QStringList parts = itemText.split(" : ");
+    if (parts.size() != 2) return;
+
+    EditDialog dialog(this);
+    dialog.setValues(parts[0], parts[1]);
+
+    if (dialog.exec() == QDialog::Accepted) {
+        QString newProduct = dialog.getProduct();
+        QString newWeight = dialog.getWeight();
+        selectedItem->setText(newProduct + " : " + newWeight);
+    }
+}
+
+
+void SSLMain::on_totalCalcBtn_clicked()
+{
+    ui->totalList->clear();
+
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Warning);
+    msgBox.setWindowTitle("Dados Faltando");
+    msgBox.setStyleSheet("QLabel { color: #fbfafa; }"
+                         "QMessageBox { background-color: #2b2b2b; }");
+
+    QListWidgetItem* selectedProductItem = ui->packageList->currentItem();
+    if (!selectedProductItem) {
+        msgBox.setText("Por favor, selecione um produto na lista.");
+        msgBox.exec();
+        return;
+    }
+
+    QString productText = selectedProductItem->text(); // Ex: "Arroz : 10kg"
+    QStringList parts = productText.split(" : ");
+    if (parts.size() != 2) return;
+
+    QString nomeProduto = parts[0];
+    QString pesoStr = parts[1].remove("kg").trimmed();
+    bool ok;
+    double peso = pesoStr.toDouble(&ok);
+    if (!ok) return;
+
+    double custoFinal = lastCost + (peso * 0.5);
+    double tempoFinal = lastTime + (peso * 0.02);
+
+    ui->totalList->addItem(
+        "Produto: " + nomeProduto + " (" + QString::number(peso) + " kg)\n" +
+        lastOrigin + " -> " + lastDestination + "\n" +
+        "Distância: " + QString::number(lastDistance) + " km\n" +
+        "Custo Final: R$ " + QString::number(custoFinal, 'f', 2) + "\n" +
+        "Tempo Estimado: " + QString::number(tempoFinal, 'f', 1) + " h"
+    );
+}
+
