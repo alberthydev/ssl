@@ -1,4 +1,9 @@
 #include "graph.h"
+#include <limits>
+#include <unordered_map>
+#include <queue>
+#include <set>
+#include <algorithm>
 
 Vertex::Vertex(const std::string& name) : name(name), next(nullptr) {}
 Vertex::~Vertex() {

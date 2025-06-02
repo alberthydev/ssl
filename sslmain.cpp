@@ -1,4 +1,5 @@
 #include "sslmain.h"
+#include "deliverytree.h"
 #include "editdialog.h"
 #include "ui_sslmain.h"
 #include "graph.h"
@@ -432,20 +433,32 @@ void SSLMain::on_totalCalcBtn_clicked()
 {
     ui->totalList->clear();
 
+    DeliveryTree deliveryTree;
+
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Warning);
     msgBox.setWindowTitle("Dados Faltando");
     msgBox.setStyleSheet("QLabel { color: #fbfafa; }"
                          "QMessageBox { background-color: #2b2b2b; }");
 
+    QListWidgetItem* selectedRoute = ui->routerTable->currentItem();
+
+    if(!selectedRoute)
+    {
+        msgBox.setText("Por favor, selecione uma rota na lista.");
+        msgBox.exec();
+        return;
+    }
+
     QListWidgetItem* selectedProductItem = ui->packageList->currentItem();
-    if (!selectedProductItem) {
+    if (!selectedProductItem)
+    {
         msgBox.setText("Por favor, selecione um produto na lista.");
         msgBox.exec();
         return;
     }
 
-    QString productText = selectedProductItem->text(); // Ex: "Arroz : 10kg"
+    QString productText = selectedProductItem->text();
     QStringList parts = productText.split(" : ");
     if (parts.size() != 2) return;
 
@@ -458,12 +471,8 @@ void SSLMain::on_totalCalcBtn_clicked()
     double custoFinal = lastCost + (peso * 0.5);
     double tempoFinal = lastTime + (peso * 0.02);
 
-    ui->totalList->addItem(
-        "Produto: " + nomeProduto + " (" + QString::number(peso) + " kg)\n" +
-        lastOrigin + " -> " + lastDestination + "\n" +
-        "Distância: " + QString::number(lastDistance) + " km\n" +
-        "Custo Final: R$ " + QString::number(custoFinal, 'f', 2) + "\n" +
-        "Tempo Estimado: " + QString::number(tempoFinal, 'f', 1) + " h"
-    );
+    deliveryTree.insert(nomeProduto, peso, lastOrigin, lastDestination, lastDistance, custoFinal, tempoFinal);
+
+    deliveryTree.fillListWidget(ui->totalList);
 }
 

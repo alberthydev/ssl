@@ -9,12 +9,15 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    deliverytree.cpp \
     editdialog.cpp \
     graph.cpp \
     main.cpp \
     sslmain.cpp
 
 HEADERS += \
+    deliveryinfo.h \
+    deliverytree.h \
     editdialog.h \
     graph.h \
     sslmain.h
