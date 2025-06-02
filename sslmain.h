@@ -2,6 +2,7 @@
 #define SSLMAIN_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include <QButtonGroup>
 #include <QGraphicsScene>
 #include <QGraphicsEllipseItem>
@@ -9,7 +10,9 @@
 #include <QPen>
 #include <QBrush>
 #include <QGraphicsSceneMouseEvent>
-#include <QList>
+#include <QList>]
+#include <QMap>
+#include <QVector>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,28 +20,27 @@ class SSLMain;
 }
 QT_END_NAMESPACE
 
-class ClickableEllipse : public QObject, public QGraphicsEllipseItem
-{
+class cityItem : public QObject, public QGraphicsEllipseItem {
     Q_OBJECT
 
 public:
-    ClickableEllipse(qreal x, qreal y, qreal w, qreal h)
-        : QGraphicsEllipseItem(x, y, w, h)
+    QString name;
+    cityItem(const QString &name, qreal x, qreal y, qreal w, qreal h)
+        : QGraphicsEllipseItem(x, y, w, h), name(name)
     {
         QColor green("#25c665");
         setBrush(green);
         setPen(QPen(Qt::black));
-        setAcceptHoverEvents(true);
         setFlag(QGraphicsItem::ItemIsSelectable);
     }
 
 signals:
-    void clicked(ClickableEllipse*);
+    void clicked(cityItem*);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override
     {
-        emit clicked(this);  // avisa quem estiver ouvindo
+        emit clicked(this);
         QGraphicsEllipseItem::mousePressEvent(event);
     }
 };
@@ -52,19 +54,30 @@ public:
     ~SSLMain();
 
 private slots:
-    void onEllipseClicked(ClickableEllipse *ellipse);
-
+    void onCityItemClicked(cityItem *city);
+    void processSearchAddress();
+    void clickedCity(QString cityName);
     void on_btnMap_clicked();
-
     void on_btnDelivery_clicked();
-
     void on_btnCosts_clicked();
+    void on_calcBtn_clicked();
 
 private:
     Ui::SSLMain *ui;
+    QGraphicsScene* scene;
     void setupMap();
-    void desenhaCurvaS(QGraphicsScene *scene, int x1, int y1, int x2, int y2);
-    QList<ClickableEllipse*> selectedEllipses;
+    QList<cityItem*> selectedCities;
+    QString originCity;
+    QString destinationCity;
+    bool textOriginCity = false;
+    bool textDestinationCity = false;
+    QMap<QString, QPointF> cityMap;
+    void setupPathMap();
+    void highlightPath(const std::vector<std::string>& path);
+    QVector<QGraphicsPathItem*> highlightedPaths;
+    QList<QGraphicsItem*> pathItems;
+    void clearPathDrawing();
+    std::map<std::pair<std::string, std::string>, std::function<void(QGraphicsScene*)>> pathMap;
 };
 
 

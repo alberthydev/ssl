@@ -210,7 +210,7 @@ QPushButton:checked {
                <number>0</number>
               </property>
               <item>
-               <layout class="QHBoxLayout" name="searchContainer" stretch="0,0">
+               <layout class="QHBoxLayout" name="searchContainer" stretch="0">
                 <property name="spacing">
                  <number>6</number>
                 </property>
@@ -232,37 +232,6 @@ color: #fbfafa;
                   </property>
                   <property name="placeholderText">
                    <string>Pesquisar Endereço...</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="searchBtn">
-                  <property name="styleSheet">
-                   <string notr="true">QPushButton
-{
-border: 1px solid #3c3c3c;
-background: #191a1f;
-border-radius: 12px;
-padding: 12px;
-}
-
-QPushButton:hover 
-{
-    background: #33353f;
-}</string>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="assets.qrc">
-                    <normaloff>:/assets/assets/search.png</normaloff>:/assets/assets/search.png</iconset>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>32</width>
-                    <height>32</height>
-                   </size>
                   </property>
                  </widget>
                 </item>
@@ -354,7 +323,7 @@ border-radius: 12px;</string>
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="rightOptions" stretch="2,2,1,2">
+         <layout class="QVBoxLayout" name="rightOptions" stretch="2,2,1,0">
           <property name="spacing">
            <number>25</number>
           </property>
@@ -437,7 +406,7 @@ padding-left: 12px;
 </string>
                </property>
                <property name="text">
-                <string>CIDADE A</string>
+                <string/>
                </property>
               </widget>
              </item>
@@ -510,7 +479,7 @@ padding: 5px;
 padding-left: 12px;</string>
                </property>
                <property name="text">
-                <string>CIDADE B</string>
+                <string/>
                </property>
               </widget>
              </item>
@@ -518,7 +487,7 @@ padding-left: 12px;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="calcBtn">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -584,7 +553,7 @@ border-radius: 12px;</string>
               <number>5</number>
              </property>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <layout class="QHBoxLayout" name="distance">
                <item>
                 <widget class="QLabel" name="distanceTitle">
                  <property name="font">
@@ -631,7 +600,7 @@ padding: 5px
               </layout>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
+              <layout class="QHBoxLayout" name="costs_2" stretch="0,0">
                <item>
                 <widget class="QLabel" name="costTitle">
                  <property name="font">
@@ -676,7 +645,7 @@ padding: 5px</string>
               </layout>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
+              <layout class="QHBoxLayout" name="time" stretch="0,0">
                <item>
                 <widget class="QLabel" name="timeTitle">
                  <property name="font">
@@ -726,15 +695,385 @@ padding: 5px</string>
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="deliveries"/>
+      <widget class="QWidget" name="deliveries">
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
+         <layout class="QVBoxLayout" name="column1" stretch="0,0,5">
+          <property name="spacing">
+           <number>25</number>
+          </property>
+          <item>
+           <widget class="QWidget" name="weightProcut" native="true">
+            <property name="styleSheet">
+             <string notr="true">background-color: #191a1f;
+border: 1px solid #2b2b2b;
+border-radius: 12px;</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <item>
+              <widget class="QWidget" name="productWidget" native="true">
+               <property name="styleSheet">
+                <string notr="true">border: none;
+border-radius: 0;
+border-bottom: 1px solid #3c3c3c;</string>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="productLabel">
+                  <property name="font">
+                   <font>
+                    <family>Carlito</family>
+                    <pointsize>16</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #fbfafa;
+border: none;
+border-radius: 0;
+padding: 15px 0 15px 5px;</string>
+                  </property>
+                  <property name="text">
+                   <string>PRODUTO:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="productInput">
+                  <property name="font">
+                   <font>
+                    <family>Carlito</family>
+                    <pointsize>18</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #fbfafa;
+border: none;
+border-radius: 0;
+padding: 15px 0 15px 5px;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="weightWidget" native="true">
+               <property name="styleSheet">
+                <string notr="true">border:none;</string>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="3,5">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="weightLabel">
+                  <property name="font">
+                   <font>
+                    <family>Carlito</family>
+                    <pointsize>16</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #fbfafa;
+border: none;
+border-radius: 0;
+padding: 15px 0 15px 5px;</string>
+                  </property>
+                  <property name="text">
+                   <string>PESO:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="weightInput">
+                  <property name="font">
+                   <font>
+                    <family>Carlito</family>
+                    <pointsize>18</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #fbfafa;
+border: none;
+border-radius: 0;
+padding: 15px 0 15px 5px;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="registerBtn">
+            <property name="font">
+             <font>
+              <family>Carlito</family>
+              <pointsize>18</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton
+{
+background: #25c665;
+color: #fbfafa;
+border-radius: 12px;
+padding: 20px;
+}
+
+QPushButton:hover 
+{
+    background: #2cd870;
+}</string>
+            </property>
+            <property name="text">
+             <string>CADASTRAR</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="routerWidget" native="true">
+            <property name="styleSheet">
+             <string notr="true">background-color: #191a1f;
+border: 1px solid #2b2b2b;
+border-radius: 12px;</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <widget class="QLabel" name="routerLable">
+               <property name="font">
+                <font>
+                 <family>Carlito</family>
+                 <pointsize>36</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: #fbfafa;
+border: none;
+border-radius: none;
+border-bottom: 1px solid #3c3c3c;</string>
+               </property>
+               <property name="text">
+                <string>ROTAS</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QListWidget" name="routerTable"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="column2" stretch="0,0">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
+            <item>
+             <widget class="QPushButton" name="editBtn">
+              <property name="font">
+               <font>
+                <family>Carlito</family>
+                <pointsize>18</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton
+{
+background: #25c665;
+color: #fbfafa;
+border-radius: 12px;
+padding: 20px;
+}
+
+QPushButton:hover 
+{
+    background: #2cd870;
+}</string>
+              </property>
+              <property name="text">
+               <string>EDITAR</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="deleteBtn">
+              <property name="font">
+               <font>
+                <family>Carlito</family>
+                <pointsize>18</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton
+{
+background: #25c665;
+color: #fbfafa;
+border-radius: 12px;
+padding: 20px;
+}
+
+QPushButton:hover 
+{
+    background: #2cd870;
+}</string>
+              </property>
+              <property name="text">
+               <string>DELETAR</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QWidget" name="packageWidget" native="true">
+            <property name="styleSheet">
+             <string notr="true">background-color: #191a1f;
+border: 1px solid #2b2b2b;
+border-radius: 12px;</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <property name="spacing">
+              <number>25</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="packageLabel">
+               <property name="font">
+                <font>
+                 <family>Carlito</family>
+                 <pointsize>36</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: #fbfafa;
+border: none;
+border-radius: none;
+border-bottom: 1px solid #3c3c3c;</string>
+               </property>
+               <property name="text">
+                <string>PACOTES</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QListWidget" name="packageList"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="column3">
+          <item>
+           <widget class="QWidget" name="totalWidget" native="true">
+            <property name="styleSheet">
+             <string notr="true">background-color: #191a1f;
+border: 1px solid #2b2b2b;
+border-radius: 12px;</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_8">
+             <item>
+              <widget class="QLabel" name="totalLable">
+               <property name="font">
+                <font>
+                 <family>Carlito</family>
+                 <pointsize>36</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: #fbfafa;
+border: none;
+border-radius: none;
+border-bottom: 1px solid #3c3c3c;</string>
+               </property>
+               <property name="text">
+                <string>TOTAL</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QListWidget" name="totalList"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="calcBtn_2">
+            <property name="font">
+             <font>
+              <family>Carlito</family>
+              <pointsize>18</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton
+{
+background: #25c665;
+color: #fbfafa;
+border-radius: 12px;
+padding: 20px;
+}
+
+QPushButton:hover 
+{
+    background: #2cd870;
+}</string>
+            </property>
+            <property name="text">
+             <string>CALCULAR</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="costs"/>
      </widget>
     </item>
    </layout>
   </widget>
  </widget>
- <resources>
-  <include location="assets.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
