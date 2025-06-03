@@ -66,16 +66,23 @@ void Graph::removeEdge(const std::string& source, const std::string& destination
 }
 
 bool Graph::dijkstra(const std::string& start, const std::string& end) {
+
+    // Map for minimal distance and predecessors
     std::unordered_map<std::string, int> distances;
     std::unordered_map<std::string, std::string> previous;
+
+    // Already visited cities
     std::set<std::string> visited;
 
+    // Compare function
     auto compare = [&](const std::pair<int, std::string>& a, const std::pair<int, std::string>& b) {
         return a.first > b.first;
     };
+
+    // Priority queue (min-heap) (pair: distance, vertex)
     std::priority_queue<std::pair<int, std::string>, std::vector<std::pair<int, std::string>>, decltype(compare)> queue(compare);
 
-    // Inicialização
+    // Start
     for (Vertex* v = vertices; v != nullptr; v = v->next) {
         distances[v->name] = std::numeric_limits<int>::max();
     }
@@ -83,6 +90,7 @@ bool Graph::dijkstra(const std::string& start, const std::string& end) {
     distances[start] = 0;
     queue.push({0, start});
 
+    // While have cities, do
     while (!queue.empty()) {
         auto [dist, currentName] = queue.top();
         queue.pop();
@@ -105,10 +113,10 @@ bool Graph::dijkstra(const std::string& start, const std::string& end) {
         }
     }
 
-    // Se destino não encontrado
+    // If path not found
     if (distances[end] == std::numeric_limits<int>::max()) return false;
 
-    // Reconstroi o caminho
+    // Rebuild the path
     pathResult.clear();
     std::string current = end;
     while (current != start) {
@@ -117,9 +125,9 @@ bool Graph::dijkstra(const std::string& start, const std::string& end) {
     }
     pathResult.insert(pathResult.begin(), start);
 
-    // Define resultados
+    // Define results
     distanceResult = distances[end];
-    costResult = distanceResult * 0.69;
+    costResult = distanceResult * 1.1;
     timeResult = static_cast<double>(distanceResult) / 60.0;
 
     return true;
@@ -131,11 +139,11 @@ bool Graph::decisionTree(const std::string& start, const std::string& end) {
 
     if (!startVertex || !endVertex) return false;
 
-    // Map para distâncias mínimas e predecessores
+    // Map for minimal distance and predecessors
     std::unordered_map<Vertex*, int> distances;
     std::unordered_map<Vertex*, Vertex*> previous;
 
-    // Inicializa distâncias com infinito
+    // Start
     for (Vertex* v = vertices; v != nullptr; v = v->next) {
         distances[v] = std::numeric_limits<int>::max();
         previous[v] = nullptr;
@@ -143,7 +151,7 @@ bool Graph::decisionTree(const std::string& start, const std::string& end) {
 
     distances[startVertex] = 0;
 
-    // Min-heap por distância (pair: distância, vértice)
+    // Priority queue (min-heap) (pair: distance, vertex)
     auto cmp = [](const std::pair<int, Vertex*>& left, const std::pair<int, Vertex*>& right) {
         return left.first > right.first;
     };
@@ -161,7 +169,7 @@ bool Graph::decisionTree(const std::string& start, const std::string& end) {
         if (current == endVertex) break;
 
         for (Edge* edge : current->edges) {
-            // Ignora arestas de terra
+            // Ignore dirt roads
             if (edge->isDirtRoad) continue;
 
             int alt = distances[current] + edge->weight;
@@ -173,24 +181,25 @@ bool Graph::decisionTree(const std::string& start, const std::string& end) {
         }
     }
 
+    // If path not found
     if (distances[endVertex] == std::numeric_limits<int>::max()) {
-        // Caminho não encontrado
+        // Path not found
         return false;
     }
 
-    // Salva resultados
+    // Define results
     distanceResult = distances[endVertex];
     pathResult.clear();
 
-    // Reconstrução do caminho
+    // Rebuild the path
     for (Vertex* v = endVertex; v != nullptr; v = previous[v]) {
         pathResult.push_back(v->name);
     }
     std::reverse(pathResult.begin(), pathResult.end());
 
-    // Atualiza costResult e timeResult se quiser, ou deixar para depois
-    costResult = distanceResult * 1.0; // Exemplo
-    timeResult = distanceResult / 40.0; // Exemplo: velocidade média 40 km/h
+    // Define results
+    costResult = distanceResult * 0.69;
+    timeResult = distanceResult / 60.0;
 
     return true;
 }
@@ -207,6 +216,7 @@ double Graph::getTime() const {
     return timeResult;
 }
 
+// Return path
 std::vector<std::string> Graph::getPath() const {
     return pathResult;
 }

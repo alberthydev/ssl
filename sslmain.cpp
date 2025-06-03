@@ -174,7 +174,7 @@ void SSLMain::setupMap() {
     addPathCurve(350, 120, 500, 260, gray);        // C → E
     addPathCurve(50, 400, 150, 250, gray);         // B → D
 
-    // Atribue to QGraphicsView
+    // Assign to QGraphicsView
     ui->mapView->setScene(scene);
 }
 
@@ -279,12 +279,6 @@ void SSLMain::on_calcBtn_clicked()
     // Estrada de terra
     graph.addEdge("Cidade D", "Cidade E", 78, true);
     graph.addEdge("Cidade E", "Cidade D", 78, true);
-
-    if(ui->origin->text()!= ""){
-
-    }else{
-        QMessageBox::warning(this, "Aviso", "Informe o nome para adicionar!");
-    }
 
     if(ui->origin->text()!="")
     {

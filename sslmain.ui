@@ -251,7 +251,7 @@ QRadioButton::indicator:checked
 </string>
               </property>
               <property name="text">
-               <string>Árvore de Decisão</string>
+               <string>Dijkstra(Customizado)</string>
               </property>
              </widget>
             </item>
