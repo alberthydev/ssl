@@ -10,7 +10,7 @@
 #include <QPen>
 #include <QBrush>
 #include <QGraphicsSceneMouseEvent>
-#include <QList>]
+#include <QList>
 #include <QMap>
 #include <QVector>
 
