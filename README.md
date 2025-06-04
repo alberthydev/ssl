@@ -28,7 +28,7 @@ Este projeto foi desenvolvido como parte da disciplina de Estrutura de Dados II 
 
 ### 🛠️ Tecnologias Utilizadas
 - **Linguagem**: C++
-- **Biblioteca gráfica**: Qt (QGraphicsScene)
+- **Biblioteca gráfica**: Qt (Cute)
 - **Estruturas de dados**: Grafos, Árvores Binárias
 - **Algoritmos**: Dijkstra, Variação de Dijkstra
 
@@ -41,7 +41,7 @@ Este projeto foi desenvolvido como parte da disciplina de Estrutura de Dados II 
 
 2. **Instalação**:
    - Extraia o arquivo ZIP baixado
-   - Execute o arquivo `SistemaLogistica.exe`
+   - Execute o arquivo `SSL.exe`
    - Se necessário, instale o [Microsoft Visual C++ Redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe)
 
 #### Linux
@@ -78,7 +78,7 @@ This project was developed as part of the Data Structures II course at Instituto
 
 ### 🛠️ Technologies Used
 - **Language**: C++
-- **Graphics library**: Qt (QGraphicsScene)
+- **Graphics library**: Qt (Cute)
 - **Data structures**: Graphs, Binary Trees
 - **Algorithms**: Dijkstra, Dijkstra Variation
 
@@ -91,7 +91,7 @@ This project was developed as part of the Data Structures II course at Instituto
 
 2. **Installation**:
    - Extract the downloaded ZIP file
-   - Run the `TransportSystem.exe` file
+   - Run the `SSL.exe` file
    - If required, install the [Microsoft Visual C++ Redistributable](https://aka.ms/vs/17/release/vc_redist.x64.exe)
 
 #### Linux
